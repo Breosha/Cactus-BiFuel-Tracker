@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f5f2e8">
+    <meta name="description" content="A friendly cactus biomass and biofuel yield estimator.">
+    <title>Cactus Fuel Lab — Biomass estimator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script type="module" src="app.mjs"></script>
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="Cactus Fuel Lab home">
+          <span class="brand-mark" aria-hidden="true"><span></span><i></i></span>
+          <span>cactus<span class="brand-light">fuel lab</span></span>
+        </a>
+        <div class="topbar-note"><span class="status-dot"></span> FIELD TOOL <span class="topbar-divider">/</span> BIOMASS ESTIMATOR</div>
+        <a class="about-link" href="#about">About this tool <span aria-hidden="true">↗</span></a>
+      </header>
+
+      <main>
+        <section class="intro">
+          <div class="intro-copy">
+            <p class="eyebrow"><span class="eyebrow-block" aria-hidden="true"></span> YOUR LITTLE BIOENERGY WORKBENCH</p>
+            <h1>Good things<br>grow from <span>cactus.</span></h1>
+            <p class="intro-description">Curious what your harvest could become? Set your biomass and moisture, then get a quick, friendly fuel estimate.</p>
+          </div>
+          <div class="hero-art" role="img" aria-label="A pixel-inspired cactus growing in a terracotta pot">
+            <span class="sun"></span>
+            <span class="cloud cloud-one"></span><span class="cloud cloud-two"></span>
+            <span class="cactus cactus-main"><i></i><b></b></span>
+            <span class="cactus cactus-small"><i></i></span>
+            <span class="pot"><i></i></span>
+            <span class="ground"></span>
+            <span class="art-label">GROW<br>WITH CARE</span>
+          </div>
+        </section>
+
+        <section class="workbench" aria-label="Biofuel yield calculator">
+          <div class="form-panel">
+            <div class="section-heading">
+              <span class="step-number">01</span>
+              <div><h2>Tell us about your harvest</h2><p>A couple of quick details is all we need.</p></div>
+            </div>
+
+            <fieldset class="species-field">
+              <legend>Choose your cactus</legend>
+              <div class="species-options" id="species-options"></div>
+            </fieldset>
+
+            <div class="control-section mass-section">
+              <div class="control-label-row">
+                <label for="mass-input">Fresh biomass</label>
+                <span class="control-hint">Before drying</span>
+              </div>
+              <div class="mass-input-wrap">
+                <input id="mass-input" type="number" min="0.1" max="1000000" step="0.1" value="100" inputmode="decimal" aria-describedby="mass-help mass-error">
+                <span class="input-unit">kg</span>
+              </div>
+              <input id="mass-slider" class="range-input" type="range" min="1" max="500" step="1" value="100" aria-label="Fresh biomass in kilograms">
+              <div class="range-ends"><span>1 kg</span><span>500 kg</span></div>
+              <p class="field-help" id="mass-help">Drag the slider or type a value up to 1,000,000 kg.</p>
+              <p class="field-error" id="mass-error" aria-live="polite"></p>
+            </div>
+
+            <div class="control-section moisture-section">
+              <div class="control-label-row">
+                <label for="moisture-input">Moisture content</label>
+                <button class="reset-button" id="reset-moisture" type="button">Use species default</button>
+              </div>
+              <div class="moisture-display"><span id="moisture-caption">Typical for this cactus</span><strong><span id="moisture-value">88</span><small>%</small></strong></div>
+              <input id="moisture-input" class="range-input moisture-range" type="range" min="0" max="100" step="1" value="88" aria-label="Moisture content percentage">
+              <div class="range-ends"><span>0% · bone dry</span><span>100% · all water</span></div>
+              <p class="field-help">More moisture means less dry material for fuel.</p>
+            </div>
+
+            <button class="calculate-button" id="calculate-button" type="button">
+              <span>Calculate my estimate</span><span class="button-arrow" aria-hidden="true">→</span>
+            </button>
+            <p class="form-footnote"><span aria-hidden="true">✳</span> Just an estimate — every harvest is a little different.</p>
+          </div>
+
+          <aside class="results-panel" aria-live="polite" aria-label="Estimate results">
+            <div class="results-topline">
+              <div><span class="results-kicker">YOUR ESTIMATE</span><span class="result-status"><i></i><span id="result-state">READY WHEN YOU ARE</span></span></div>
+              <span class="result-stamp" aria-hidden="true">CF<br>LAB</span>
+            </div>
+            <div id="results-content" class="results-content">
+              <div class="empty-art" aria-hidden="true">
+                <span class="empty-sun"></span><span class="empty-plant"><i></i><b></b></span><span class="empty-pot"></span>
+              </div>
+              <h2>A small step,<br>a <span>bright idea.</span></h2>
+              <p>Your results will grow here. Add your harvest details and tap the green button to see what the numbers say.</p>
+              <div class="empty-note"><span aria-hidden="true">✳</span> No account, no fuss. Your numbers stay right here in your browser.</div>
+            </div>
+            <div id="results-data" class="results-data" hidden>
+              <p class="result-species" id="result-species"></p>
+              <div class="fuel-hero">
+                <span class="fuel-icon" aria-hidden="true">↗</span>
+                <span class="metric-label">ESTIMATED BIOFUEL</span>
+                <div class="fuel-amount"><strong id="fuel-value">0.00</strong><span>litres</span></div>
+                <p>from <span id="result-mass">100</span> kg of fresh biomass</p>
+              </div>
+              <div class="result-metrics">
+                <div class="metric-card"><span class="metric-icon dry-icon" aria-hidden="true">▦</span><span class="metric-label">DRY BIOMASS</span><strong><span id="dry-value">0.00</span><small>kg</small></strong><span class="metric-detail">ready for conversion</span></div>
+                <div class="metric-card"><span class="metric-icon water-icon" aria-hidden="true">⌁</span><span class="metric-label">WATER MASS</span><strong><span id="water-value">0.00</span><small>kg</small></strong><span class="metric-detail">in your fresh harvest</span></div>
+                <div class="metric-card energy-card"><span class="metric-icon energy-icon" aria-hidden="true">✳</span><span class="metric-label">ENERGY POTENTIAL</span><strong><span id="energy-value">0.00</span><small>MJ</small></strong><span class="metric-detail">estimated total energy</span></div>
+              </div>
+              <p class="result-footnote">Based on a simple dry-mass conversion estimate. Real-world yields vary with growing and processing conditions.</p>
+              <button class="recalculate-button" id="recalculate-button" type="button">↻ &nbsp; Update my estimate</button>
+            </div>
+            <div class="panel-footer"><span>GROWN ON GOOD DATA</span><span>v1.0 <i></i></span></div>
+          </aside>
+        </section>
+
+        <section class="how-it-works" id="about">
+          <div class="how-title"><span class="eyebrow">HOW THE ESTIMATE GROWS</span><h2>Three simple steps.</h2></div>
+          <div class="steps">
+            <article><span class="step-icon cactus-icon" aria-hidden="true">♧</span><div><span class="step-tag">01 / PICK</span><h3>Choose a cactus</h3><p>Each variety has its own typical moisture and fuel conversion estimate.</p></div></article>
+            <article><span class="step-icon scale-icon" aria-hidden="true">▤</span><div><span class="step-tag">02 / WEIGH</span><h3>Enter fresh mass</h3><p>Use your harvest weight before any drying or processing.</p></div></article>
+            <article><span class="step-icon sun-icon" aria-hidden="true">✳</span><div><span class="step-tag">03 / GROW</span><h3>Explore your results</h3><p>See dry biomass, water mass, estimated fuel and energy together.</p></div></article>
+          </div>
+        </section>
+      </main>
+
+      <footer class="page-footer"><a class="footer-brand" href="#">cactus<span>fuel lab</span></a><span>A little curiosity goes a long way. <span aria-hidden="true">✳</span></span><a href="#about">About the estimate ↑</a></footer>
+    </div>
+  </body>
+</html>
