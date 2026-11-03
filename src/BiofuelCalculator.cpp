@@ -5,8 +5,8 @@ SimulationResult BiofuelCalculator::calculateYield(const CactusSpecies& species,
                                                    double freshMassKg, 
                                                    double moisturePercent, 
                                                    double conversionRate) {
-    // Clamp moisture between 0% and 99.9%
-    double moistureRatio = std::clamp(moisturePercent, 0.0, 99.9) / 100.0;
+    // Clamp moisture between 0% and 100%.
+    double moistureRatio = std::clamp(moisturePercent, 0.0, 100.0) / 100.0;
     
     double waterMass = freshMassKg * moistureRatio;
     double dryMass = freshMassKg * (1.0 - moistureRatio);
